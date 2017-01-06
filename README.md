@@ -1,6 +1,6 @@
 # Machine-Learning
 
-A list of Machine Learning algorithms. Currently includes the following algorithms:
+A (WIP) list of Machine Learning algorithms in Python. Currently includes the following algorithms:
 
 1. k-Nearest Neighbors
 
