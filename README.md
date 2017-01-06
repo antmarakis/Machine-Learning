@@ -2,7 +2,7 @@
 
 A (WIP) list of Machine Learning algorithms in Python. Currently includes the following algorithms:
 
-1. k-Nearest Neighbors
+1. k-Nearest Neighbors ([Read More](https://algorithmsandstuff.wordpress.com/2016/12/25/k-nearest-neighbors/))
 
 2. kMeans
 
@@ -10,7 +10,7 @@ A (WIP) list of Machine Learning algorithms in Python. Currently includes the fo
   
   2. includes plotting, which requires matplotlib
  
-3. Perceptron
+3. Perceptron ([Perceptron Theory](https://algorithmsandstuff.wordpress.com/2017/01/05/perceptron-theory/))
  
 4. Least Squares
  
