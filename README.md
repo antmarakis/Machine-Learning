@@ -6,18 +6,22 @@ A (WIP) list of Machine Learning algorithms in Python. Currently includes the fo
 
 2. kMeans
 
-  1. includes Silhouetting to find number of clusters, scikit-learn required
+  1. Includes Silhouetting to find number of clusters, scikit-learn required
   
-  2. includes plotting, which requires matplotlib
+  2. Includes plotting, which requires matplotlib
  
 3. Perceptron ([Perceptron Theory](https://algorithmsandstuff.wordpress.com/2017/01/05/perceptron-theory/))
  
 4. Least Squares
  
-  1. needs numpy
+  1. Requires numpy
   
-  2. includes plotting, which requires matplotlib
+  2. Includes plotting, which requires matplotlib
+
+5. Naive Bayes Classifier ([Read more on Categorical](https://algorithmsandstuff.wordpress.com/2016/12/09/naive-categorical-bayes-classifier-intro/), ([Read more on Numerical](https://algorithmsandstuff.wordpress.com/2016/12/17/naive-numerical-bayes-classifier-introduction/))
+  
+  1. Includes Categorical and Numerical classifiers
+
+6. Neural Network
  
-5. Neural Network
- 
-  1. currently built with PyBrain, working on a "from-scratch" release
+  1. Currently built with PyBrain, working on a "from-scratch" release
