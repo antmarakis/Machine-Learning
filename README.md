@@ -2,6 +2,8 @@
 
 A (WIP) list of Machine Learning algorithms in Python. Currently includes the following algorithms:
 
+### Classifiers
+
 1. k-Nearest Neighbors ([Read More](https://algorithmsandstuff.wordpress.com/2016/12/25/k-nearest-neighbors/))
 
 2. kMeans
@@ -25,3 +27,7 @@ A (WIP) list of Machine Learning algorithms in Python. Currently includes the fo
 6. Neural Network
  
   1. Currently built with PyBrain, working on a "from-scratch" release
+
+### Sequential Data
+
+1. Viterbi Algorithm on Hidden Markov Models
