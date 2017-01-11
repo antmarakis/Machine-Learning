@@ -26,7 +26,7 @@ A (WIP) list of Machine Learning algorithms in Python. Currently includes the fo
 
 6. Neural Network
  
-  1. Currently built with PyBrain, working on a "from-scratch" release
+  1. Pending commenting and documentation, wrote it in a hurry
 
 ### Sequential Data
 
