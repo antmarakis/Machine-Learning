@@ -1,6 +1,7 @@
 import numpy as np;
 import Reader;
 
+###_Evaluation Functions_###
 def Predict(item,Weights,hidden,output):
     W1, W2 = Weights;
     
@@ -41,7 +42,40 @@ def Accuracy(X,Y,Weights,hidden,output):
         if(y == guess):
             correct += 1;
     
-    print correct/float(len(X));
+    return correct/float(len(X));
+
+def FoldValidation(k,X,Y,hidden,output):
+    if(k > len(X)):
+        return -1;
+
+    correct = 0; #The number of correct classifications
+    total = len(X)*(k-1); #The total number of classifications
+
+    l = len(X)/k; #The length of a fold
+
+    for i in range(k):
+        #Split data set into training and testing
+        trainingX = X[i*l:(i+1)*l];
+        trainingY = Y[i*l:(i+1)*l];
+
+        testX = X[:i * l] + X[(i + 1) * l:];
+        testY = Y[:i * l] + Y[(i + 1) * l:];
+
+        #Calculate Weights
+        W1, W2 = NeuralNetwork(200, trainingX, trainingY, 0.05, f, h, o);
+
+        #Make predictions for test sets
+        for j in range(len(testX)):
+            x = testX[j];
+            y = list(testY[j].A1);
+
+            guess = Predict(x,[W1,W2],hidden,output);
+
+            if(y == guess):
+                correct += 1;
+
+    return correct/float(total);
+
 
 ###_Auxiliary Functions_###
 def Sigmoid(x):
@@ -52,7 +86,6 @@ def SigmoidDerivative(x):
 
 def InitializeWeights(f,hidden,output):
     #Initialize weights with random values in [-1,1] (including bias)
-    #s : length of second layer
 
     #Augment feature vectors with bias
     f += 1;
@@ -68,8 +101,55 @@ def InitializeWeights(f,hidden,output):
     return W1, W2;
 
 ###_Core Functions_###
+def Train(X, Y, f, hidden, output, W1, W2, r):
+    for i in range(len(X)):
+        x = X[i];
+        y = Y[i].A1;
+        x = np.matrix(np.append(1, x));  # Augment feature vector
+
+        ##_Forward Propagation_##
+
+        # Hidden layer activation
+        activationHidden = LayerActivation(hidden, W1, x);
+
+        # Augment hidden activation output
+        augmentedHidden = np.append(1, activationHidden);
+        outputFinal = LayerActivation(output, W2, augmentedHidden);
+
+        ##_Backpropagation_##
+
+        # _Correction for Output_#
+
+        # Convert output activation to matrix
+        aO = np.matrix(outputFinal);
+
+        errorOutput = np.matrix(y - outputFinal);  # Prediction error
+        deltaOutput = np.multiply(errorOutput, SigmoidDerivative(aO));
+
+        # Convert hidden activation to matrix
+        aA = np.matrix(augmentedHidden);
+        D = r * np.multiply(deltaOutput.T, aA);  # Correction for output layer
+
+        W2 += D;  # Correct synapses/weights between hidden-output layers
+
+        # _Correction for Hidden_#
+        w = np.delete(W2, [0], axis=1);  # remove bias
+
+        # Convert hidden activation (without bias) to matrix
+        aH = np.matrix(activationHidden);
+
+        # Propagate error backwards
+        errorHidden = np.dot(deltaOutput, w);
+        deltaHidden = np.multiply(errorHidden, SigmoidDerivative(aH));
+
+        DH = np.multiply(deltaHidden.T, x);  # Correction for hidden layer
+
+        W1 += DH;  # Correct synapses/weights between input-hidden layers
+
+    return W1, W2;
+
 def NeuronActivation(Weight,Input):
-    Sum = np.dot(Weight,Input.T);
+    Sum = np.dot(Weight,Input.T); #W*x
     
     #Return sigmoid, turn numpy array to number
     activation = Sigmoid(Sum);
@@ -81,57 +161,22 @@ def LayerActivation(Size,Weights,Input):
     layerOutput = [0]*Size;
     
     for i in range(Size):
-        layerOutput[i] = NeuronActivation(Weights[i].A1,np.matrix(Input));
+        #Build layer activation output via neurons
+        w = Weights[i].A1; #Synapses' Weights
+        x = np.matrix(Input); #Turn input to matrix
+        layerOutput[i] = NeuronActivation(w,x);
 
     return layerOutput;
-
-def Train(X,Y,f,hidden,output,W1,W2,r):
-    for i in range(len(X)):
-        x = X[i];
-        y = Y[i].A1;
-        x = np.matrix(np.append(1,x)); #Augment feature vector
-
-        #_Forward Propagation_#
-        activationHidden = LayerActivation(hidden,W1,x);
-        
-        #Augment hidden activation output
-        augmentedHidden = np.append(1,activationHidden);
-        outputFinal = LayerActivation(output,W2,augmentedHidden);
-
-        #_Backpropagation_#
-        #Correction for Output
-        aO = np.matrix(outputFinal);
-        
-        errorOutput = np.matrix(y - outputFinal);
-        deltaOutput = np.multiply(errorOutput,SigmoidDerivative(aO));
-        
-        aA = np.matrix(augmentedHidden);
-        D = r*np.multiply(deltaOutput.T,aA);
-        
-        W2 += D;
-        
-        #Correction for Hidden
-        w = np.delete(W2,[0],axis=1); #remove bias
-        
-        aH = np.matrix(activationHidden);
-        
-        errorHidden = np.dot(deltaOutput,w);
-        deltaHidden = np.multiply(errorHidden,SigmoidDerivative(aH));
-        
-        DH = np.multiply(deltaHidden.T,x);
-        
-        W1 += DH;
-    
-    return W1,W2;
 
 def NeuralNetwork(epochs,X,Y,r,f,hidden,output):
     W1, W2 = InitializeWeights(f,hidden,output);
 
     for epoch in range(epochs):
+        #Train weights
         W1,W2 = Train(X,Y,f,hidden,output,W1,W2,r);
 
-        if(epoch % 10 == 0):
-            print epoch;
+        if(epoch % 25 == 0):
+            print "Epoch ",epoch;
 
     return W1,W2;
 
@@ -142,8 +187,4 @@ f = len(X[0].A1);
 h = 9;
 o = len(Y[0].A1);
 
-W1, W2 = NeuralNetwork(200,X,Y,0.3,f,h,o);
-#newItem = [5.1, 3.5, 1.4, 0.2];
-#Predict(newItem,[W1,W2],5,3);
-
-Accuracy(X,Y,[W1,W2],h,o);
+print FoldValidation(5,X,Y,h,o);
