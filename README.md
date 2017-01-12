@@ -28,6 +28,8 @@ A (WIP) list of Machine Learning algorithms in Python. Currently includes the fo
  
   1. Requires numpy
 
-### Sequential Data
+### Other (DP Approaches)
 
 1. Viterbi Algorithm on Hidden Markov Models
+
+2. Edit Distance
