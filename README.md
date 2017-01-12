@@ -20,7 +20,7 @@ A (WIP) list of Machine Learning algorithms in Python. Currently includes the fo
   
   2. Includes plotting, which requires matplotlib
 
-5. Naive Bayes Classifier ([Read more on Categorical](https://algorithmsandstuff.wordpress.com/2016/12/09/naive-categorical-bayes-classifier-intro/), [Read more on Numerical](https://algorithmsandstuff.wordpress.com/2016/12/17/naive-numerical-bayes-classifier-introduction/))
+5. Naive Bayes Classifier ([Categorical](https://algorithmsandstuff.wordpress.com/2016/12/09/naive-categorical-bayes-classifier-intro/), [Numerical](https://algorithmsandstuff.wordpress.com/2016/12/17/naive-numerical-bayes-classifier-introduction/))
   
   1. Includes Categorical and Numerical classifiers
 
