@@ -2,9 +2,20 @@ import kMeans;
 import numpy as np;
 from random import choice;
 from matplotlib import pyplot;
+import Silhouette;
 
+def CutToTwoFeatures(items,indexA,indexB):
+    n = len(items);
+    X = [];
+    for i in range(n):
+        item = items[i];
+        newItem = [item[indexA],item[indexB]];
+        X.append(newItem);
 
-def PlotClusters(clusters,indexA,indexB):
+    return X;
+        
+
+def PlotClusters(clusters):
     n = len(clusters);
     #Cut down the items to two dimension and store to X
     X = [[] for i in range(n)];
@@ -12,17 +23,15 @@ def PlotClusters(clusters,indexA,indexB):
     for i in range(n):
         cluster = clusters[i];
         for item in cluster:
-            newX = [item[indexA],item[indexB]];
-
-            X[i].append(newX);
+            X[i].append(item);
 
     colors = ['r','b','g','c','m','y'];
 
     for x in X:
         #Choose color randomly from list, then remove it
         #(to avoid duplicates)
-        color = choice(colors);
-        colors.remove(color);
+        c = choice(colors);
+        colors.remove(c);
 
         Xa = [];
         Xb = [];
@@ -31,21 +40,21 @@ def PlotClusters(clusters,indexA,indexB):
             Xa.append(item[0]);
             Xb.append(item[1]);
 
-        pyplot.plot(Xa,Xb,'o',color=color);
+        pyplot.plot(Xa,Xb,'o',color=c);
 
     pyplot.show();
         
 
-def main(k):
-    data = kMeans.ReadData('data.txt');
-    items = data[0];
-    colMinima = data[1];
-    colMaxima = data[2];
+def main():
+    items = kMeans.ReadData('data.txt');
+    items = CutToTwoFeatures(items,2,3);
 
-    #Find means and clusters
-    means = kMeans.CalculategMeans(k,items,colMinima,colMaxima);
+    #Find k, means and clusters
+    #k = Silhouette.CalculateK(items,30);
+    k = 3;
+    means = kMeans.CalculateMeans(k,items);
     clusters = kMeans.FindClusters(means,items);
     
-    PlotClusters(clusters,2,3);
+    PlotClusters(clusters);
 
-main(3);
+main();
