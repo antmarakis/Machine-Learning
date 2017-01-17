@@ -66,6 +66,7 @@ def BuildY(Y):
 
     return np.matrix(newY);
 
+
 ###_Core Functions_###
 def CalculateWeights(X,Y):
     #Number of attributes
@@ -112,8 +113,9 @@ def Predict(W,x):
 
     return y; #Return prediction vector
 
+
 ###_Evaluation Functions_###
-def FoldValidation(k,X,Y):
+def K_FoldValidation(k,X,Y):
     if(k > len(X)):
         return -1;
 
@@ -146,11 +148,12 @@ def Evaluate(times,k,X,Y):
     accuracy = 0;
     for t in range(times):
         X,Y = ShuffleArrays(X,Y);
-        accuracy += FoldValidation(k,X,Y);
+        accuracy += K_FoldValidation(k,X,Y);
 
     print accuracy/float(times);
 
 
+###_Main_###
 def main():
     data = ReadData('data.txt');
     X = data[0];
