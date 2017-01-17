@@ -21,6 +21,8 @@ A (WIP) list of Machine Learning algorithms in Python. Currently includes the fo
 5. Neural Network
  
   1. Requires numpy
+  
+  2. Includes plotting, which requires matplotlib
 
 ### Clustering
 
