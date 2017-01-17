@@ -3,7 +3,7 @@ import sys;
 from random import shuffle, uniform;
 import Silhouette;
 
-###_Pre-Processing_###
+###_Read Data_###
 def ReadData(fileName):
     #Read the file, splitting by lines
     f = open(fileName,'r');
@@ -60,7 +60,8 @@ def InitializeMeans(items,k,cMin,cMax):
     for mean in means:
         for i in range(len(mean)):
             #Set value to a random float
-            mean[i] = uniform(cMin[i],cMax[i]);
+            #(adding +-1 to avoid a wide placement of a mean)
+            mean[i] = uniform(cMin[i]+1,cMax[i]-1);
 
     return means;
 
@@ -102,7 +103,7 @@ def Classify(means,item):
     
     return index;
 
-def CalculateMeans(k,items):
+def CalculateMeans(k,items,maxIterations=100000):
     #Find the minima and maxima for columns
     cMin, cMax = FindColMinMax(items);
     
@@ -113,14 +114,33 @@ def CalculateMeans(k,items):
     #the number of items in a class
     clusters = [0 for i in range(len(means))];
 
-    for item in items:
-        #Classify item into a cluster and updated the
-        #corresponding means.
-        
-        index = Classify(means,item);
+    #An array to hold the cluster an item is in
+    belongsTo = [0 for i in range(len(items))];
 
-        clusters[index] += 1;
-        means[index] = UpdateMean(clusters[index],means[index],item);
+    #Calculate means
+    for e in range(maxIterations):
+        #If no change of cluster occurs, halt
+        noChange = True;
+        clusters = [0 for i in range(len(means))];
+        for i in range(len(items)):
+            item = items[i];
+            #Classify item into a cluster and update the
+            #corresponding means.
+        
+            index = Classify(means,item);
+
+            clusters[index] += 1;
+            means[index] = UpdateMean(clusters[index],means[index],item);
+
+            #Item changed cluster
+            if(index != belongsTo[i]):
+                noChange = False;
+
+            belongsTo[i] = index;
+
+        #Nothing changed, return
+        if(noChange):
+            return means;
 
     return means;
 
@@ -129,14 +149,20 @@ def CalculateMeans(k,items):
 def main():
     items = ReadData('data.txt');
 
+    ## If you don't want to ran the Silhouetting algorithm, ##
+    ## comment/delete the next four lines and set k=3 ##
+    print "Silhouetting...";
     k = Silhouette.CalculateK(items,30);
-    print k;
+    print "k = ", k;
+    print "Finished Silhouetting...";
+
+    #k = 3;
 
     means = CalculateMeans(k,items);
-    print means;
+    print "Means = ", means;
 
     clusters = FindClusters(means,items);
-    print clusters;
+    print "Clusters: ", clusters;
 
     #newItem = [5.4,3.7,1.5,0.2];
     #print Classify(means,newItem);
