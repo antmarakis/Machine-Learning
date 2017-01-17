@@ -2,6 +2,7 @@ import math; #For pow and sqrt
 from random import shuffle;
 
 
+###_Reading_###
 def ReadData(fileName):
     #Read the file, splitting by lines
     f = open(fileName,'r');
@@ -32,6 +33,7 @@ def ReadData(fileName):
 
     return items;
 
+
 ###_Auxiliary Function_###
 def EuclideanDistance(x,y):
     S = 0; #The sum of the squared differences of the elements
@@ -55,6 +57,7 @@ def CalculateNeighborsClass(neighbors,k):
     return count;
 
 def FindMax(Dict):
+    #Find max in dictionary, return max value and max index
     maximum = -1;
     classification = "";
     
@@ -145,6 +148,7 @@ def Evaluate(K,k,items,iterations):
         accuracy += K_FoldValidation(K,k,items);
 
     print accuracy/float(iterations);
+
 
 ###_Main_###
 def main():
