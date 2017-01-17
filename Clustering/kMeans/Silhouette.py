@@ -15,7 +15,7 @@ def FindMax(Dict):
     return key;
 
 def CalculateK(items,s):
-    clusterRange = [3,4,5,6,7,8,9,10]; #The range of k
+    clusterRange = [3,4,5,6,7,8,9]; #The range of k
     clusterCount = {};
     maximum = -100;
     k = -1;
@@ -24,7 +24,7 @@ def CalculateK(items,s):
         #Run algorithm s times
         for n in clusterRange:
             #Iterate through possible cluster sizes
-            means = kMeans.CalculateMeans(n,items);
+            means = kMeans.CalculateMeans(n,items,5);
             classifications = []; #Matrix of classifications
             
             for item in items:
