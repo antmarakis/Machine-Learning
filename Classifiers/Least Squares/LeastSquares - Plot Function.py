@@ -8,6 +8,13 @@ def PlotFunction(X,Y,percentage,indexA,indexB):
     n = len(X)-1; #Number of items
     split = int(n*percentage);
 
+    #Delete all columns but the ones on the given indexes
+    for i in range(len(Y[0])):
+        if(i == indexA or i == indexB):
+            continue;
+
+        X = np.delete(X, 0, 1);
+
     #Normalize values
     for i in range(n+1):
         X[i] = X[i] / X.max();
@@ -18,22 +25,14 @@ def PlotFunction(X,Y,percentage,indexA,indexB):
     #The items will be sorted into classes in this list
     Points = [[] for i in range(testY.shape[1])];
 
-    #Delete all columns but the ones on the given indexes
-    for i in range(len(testY[0])):
-        if(i == indexA or i == indexB):
-            continue;
-
-        testX = np.delete(testX, 0, 1);
-
     W = LS.CalculateWeights(testX,testY);
 
-    total = len(testX);
     correct = 0;
 
     #Calculate accuracy
-    for i in range(total):
-        prediction = LS.Predict(W,testX[i]);
-        itemClass = list(testY[i].A1);
+    for i in range(n):
+        prediction = LS.Predict(W,X[i]);
+        itemClass = list(Y[i].A1);
 
         if(prediction == itemClass):
             correct += 1;
@@ -45,9 +44,9 @@ def PlotFunction(X,Y,percentage,indexA,indexB):
                 index = j;
                 break;
 
-        Points[index].append(testX[i]);
+        Points[index].append(X[i]);
 
-    accuracy = correct/float(total)*100;
+    accuracy = correct/float(n)*100;
     print "Accuracy ",accuracy;
 
     colors = ['r','b','g','c','m','y'];
@@ -73,10 +72,7 @@ def PlotFunction(X,Y,percentage,indexA,indexB):
 
 
 def main():
-    data = LS.ReadData('data2.txt');
-    X = data[0];
-    Y = data[1];
-    n = data[2];
+    X,Y,n = LS.ReadData('data.txt');
 
     PlotFunction(X,Y,0.7,2,3);
 
