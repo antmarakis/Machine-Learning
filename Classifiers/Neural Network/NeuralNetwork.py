@@ -54,7 +54,7 @@ def Train(X, Y, f, hidden, output, W1, W2, r):
 
         #Convert hidden activation to matrix
         aA = np.matrix(augmentedHidden);
-        D = r * np.multiply(deltaOutput.T, aA);  #Correction for output layer
+        D = r*np.multiply(deltaOutput.T, aA);  #Correction for output layer
 
         W2 += D;  #Correct synapses/weights between hidden-output layers
 
@@ -68,7 +68,7 @@ def Train(X, Y, f, hidden, output, W1, W2, r):
         errorHidden = np.dot(deltaOutput, w);
         deltaHidden = np.multiply(errorHidden, SigmoidDerivative(aH));
 
-        DH = np.multiply(deltaHidden.T, x);  #Correction for hidden layer
+        DH = r*np.multiply(deltaHidden.T, x);  #Correction for hidden layer
 
         W1 += DH;  #Correct synapses/weights between input-hidden layers
 
