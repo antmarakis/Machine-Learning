@@ -67,7 +67,6 @@ def CalculateConfidence(item,weight):
 
 def CalculateWeights(trainingSet,rate,epochs,classes,features):
     #Initialize weights at 0
-    l = len(trainingSet[0]);
     weights = {};
 
     #Initialize weights dictionary. Weights is divided in classes.
