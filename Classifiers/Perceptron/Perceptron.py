@@ -39,6 +39,50 @@ def ReadData(fileName):
     return items,classes,features;
 
 
+###_Evaluation Functions_###
+def K_FoldValidation(K,Items,rate,epochs,classes,features):
+    if(K > len(Items)):
+        return -1;
+
+    correct = 0; #The number of correct classifications
+    total = len(Items)*(K-1); #The total number of classifications
+
+    l = len(Items)/K; #The length of a fold
+
+    for i in range(K):
+        #Split data set into training and testing
+        trainingSet = Items[i*l:(i+1)*l];
+        testSet = Items[:i*l] + Items[(i+1)*l:];
+
+        weights = CalculateWeights(trainingSet,rate,epochs,classes,features);
+
+        for item in testSet:
+            itemClass = item["Class"];
+
+            itemFeatures = {};
+
+            for key in item:
+                if(key != "Class"):
+                    #If key isn't "Class", add it to itemFeatures
+                    itemFeatures[key] = item[key];
+          
+            guess = Perceptron(itemFeatures,weights);
+
+            if(guess == itemClass):
+                #Guessed correctly
+                correct += 1;
+
+    return correct/float(total);
+
+def Evaluate(times,K,Items,rate,epochs,classes,features):
+    accuracy = 0;
+    for t in range(times):
+        shuffle(Items);
+        accuracy += K_FoldValidation(K,Items,rate,epochs,classes,features);
+
+    print accuracy/float(times);
+
+
 ###_Auxiliary Functions_###
 def AddDictionaries(d1,d2,rate):
     d3 = {};
@@ -98,6 +142,7 @@ def CalculateWeights(trainingSet,rate,epochs,classes,features):
     return weights;
 
 def Perceptron(item,weights):
+    item["Bias"] = 1; #Augment item vector with bias
     m = -1; #Hold the maximum
     classification = ""; #Hold the classification
 
@@ -115,50 +160,6 @@ def Perceptron(item,weights):
     return classification;
 
 
-###_Evaluation Functions_###
-def K_FoldValidation(K,Items,rate,epochs,classes,features):
-    if(K > len(Items)):
-        return -1;
-
-    correct = 0; #The number of correct classifications
-    total = len(Items)*(K-1); #The total number of classifications
-
-    l = len(Items)/K; #The length of a fold
-
-    for i in range(K):
-        #Split data set into training and testing
-        trainingSet = Items[i*l:(i+1)*l];
-        testSet = Items[:i*l] + Items[(i+1)*l:];
-
-        weights = CalculateWeights(trainingSet,rate,epochs,classes,features);
-
-        for item in testSet:
-            itemClass = item["Class"];
-
-            itemFeatures = {};
-
-            for key in item:
-                if(key != "Class"):
-                    #If key isn't "Class", add it to itemFeatures
-                    itemFeatures[key] = item[key];
-          
-            guess = Perceptron(itemFeatures,weights);
-
-            if(guess == itemClass):
-                #Guessed correctly
-                correct += 1;
-
-    return correct/float(total);
-
-def Evaluate(times,K,Items,rate,epochs,classes,features):
-    accuracy = 0;
-    for t in range(times):
-        shuffle(Items);
-        accuracy += K_FoldValidation(K,Items,rate,epochs,classes,features);
-
-    print accuracy/float(times);
-
-
 ###_Main_###
 def main():
     data = ReadData('data.txt');
@@ -171,10 +172,10 @@ def main():
     epochs = 450;
     weights = CalculateWeights(items,lRate,epochs,classes,features);
 
-    #item = {'PW' : 1.4, 'PL' : 4.7, 'SW' : 3.2, 'SL' : 7.0, "Bias":1};
-    #print Perceptron(item,weights);
+    item = {'PW' : 1.4, 'PL' : 4.7, 'SW' : 3.2, 'SL' : 7.0};
+    print Perceptron(item,weights);
 
-    Evaluate(100,5,items,lRate,epochs,classes,features);
+    #Evaluate(100,5,items,lRate,epochs,classes,features);
 
 if __name__ == "__main__":
     main();
