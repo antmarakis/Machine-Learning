@@ -4,9 +4,9 @@ A (WIP) list of Machine Learning algorithms in Python. Currently includes the fo
 
 ### Classifiers
 
-1. k-Nearest Neighbors ([Read More](https://algorithmsandstuff.wordpress.com/2016/12/25/k-nearest-neighbors/))
+1. k-Nearest Neighbors ([Blog Post](https://algorithmsandstuff.wordpress.com/2016/12/25/k-nearest-neighbors/))
  
-2. Perceptron ([Perceptron Theory](https://algorithmsandstuff.wordpress.com/2017/01/05/perceptron-theory/))
+2. Perceptron ([Theory](https://algorithmsandstuff.wordpress.com/2017/01/05/perceptron-theory/), [Implementation](https://algorithmsandstuff.wordpress.com/2017/02/05/perceptron-implementation/))
  
 3. Least Squares
  
