@@ -123,8 +123,8 @@ def CalculateWeights(trainingSet,rate,epochs,classes,features):
 
     for epoch in range(epochs):
         for item in trainingSet:
-            #Iterate throught trainingSet
-            #Guess where item belogs
+            #Iterate through trainingSet
+            #Guess where item belongs
             y = -1;
             guess = "";
             for w in weights:
@@ -169,7 +169,7 @@ def main():
     features = data[2];
 
     lRate = 0.1;
-    epochs = 450;
+    epochs = 50;
     weights = CalculateWeights(items,lRate,epochs,classes,features);
 
     item = {'PW' : 1.4, 'PL' : 4.7, 'SW' : 3.2, 'SL' : 7.0};
