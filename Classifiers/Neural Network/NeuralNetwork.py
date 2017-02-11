@@ -36,11 +36,11 @@ def Train(X, Y, f, hidden, output, W1, W2, r):
         ##_Forward Propagation_##
 
         #Hidden layer activation
-        activationHidden = LayerActivation(hidden, W1, x);
+        activationHidden = Sigmoid(np.dot(x,W1.T));
 
         #Augment hidden activation output
         augmentedHidden = np.append(1, activationHidden);
-        outputFinal = LayerActivation(output, W2, augmentedHidden);
+        outputFinal = Sigmoid(np.dot(augmentedHidden,W2.T));
 
         ##_Backpropagation_##
 
@@ -74,26 +74,6 @@ def Train(X, Y, f, hidden, output, W1, W2, r):
 
     return W1, W2;
 
-def NeuronActivation(Weight, Input):
-    Sum = np.dot(Weight, Input.T);  #W*x
-
-    #Return sigmoid, turn numpy array to number
-    activation = Sigmoid(Sum);
-    activation = np.asscalar(activation);
-
-    return activation;
-
-def LayerActivation(Size, Weights, Input):
-    layerOutput = [0] * Size;
-
-    for i in range(Size):
-        #Build layer activation output via neurons
-        w = Weights[i].A1;  #Synapses' Weights
-        x = np.matrix(Input);  #Turn input to matrix
-        layerOutput[i] = NeuronActivation(w, x);
-
-    return layerOutput;
-
 def NeuralNetwork(epochs, X, Y, r, f, hidden, output):
     W1, W2 = InitializeWeights(f, hidden, output);
 
@@ -114,11 +94,13 @@ def Predict(item, Weights, hidden, output):
     item = np.append(1, item);  # Augment feature vector
 
     #_Forward Propagation_#
-    outputHidden = LayerActivation(hidden, W1, item);
+    outputHidden = Sigmoid(np.dot(item,W1.T));
     #Augment hidden activation output
     outputHidden = np.append(1, outputHidden);
-    outputFinal = LayerActivation(output, W2, outputHidden);
+    outputFinal = Sigmoid(np.dot(outputHidden,W2.T));
+    #outputFinal = LayerActivation(output, W2, outputHidden);
 
+    outputFinal = outputFinal.A1;
     #Find max activation in output
     m = outputFinal[0];
     index = 0;
