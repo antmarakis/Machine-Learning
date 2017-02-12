@@ -27,9 +27,7 @@ A (WIP) list of Machine Learning algorithms in Python. Currently includes the fo
 ### Clustering
 
 1. kMeans
-
-  1. Includes Silhouetting to find number of clusters, scikit-learn required
   
-  2. Includes plotting, which requires matplotlib
+  1. Includes plotting, which requires matplotlib
   
-  3. NOTE: The current implementation is the online (or sequential) kMeans
+  2. Includes both the online (or sequential) kMeans and the standard (or iterative) algorithm.
