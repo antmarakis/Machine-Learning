@@ -24,18 +24,20 @@ def PlotFunction(X,Y,percentage,indexA,indexB):
     Points = [[] for i in range(len(testY[0].A1))];
 
     f = 2;
-    h = 10;
+    h1 = 5;
+    h2 = 10;
     o = len(Y[0].A1);
+    hiddenLayers = 2;
     r = 0.15;
-    epochs = 200;
+    epochs = 100;
 
-    W1, W2 = NN.NeuralNetwork(epochs,testX,testY,r,f,h,o);
+    weights = NN.NeuralNetwork(epochs,X,Y,f,hiddenLayers,[h1,h2,o],r);
 
     correct = 0;
 
     #Calculate accuracy
     for i in range(n):
-        prediction = NN.Predict(X[i],[W1,W2],h,o);
+        prediction = NN.Predict(X[i], weights, hiddenLayers+1);
         itemClass = list(Y[i].A1);
 
         if(prediction == itemClass):
