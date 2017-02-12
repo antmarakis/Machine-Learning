@@ -110,7 +110,7 @@ def Predict(item, Weights, layers, sigmoid=True):
     for i in range(1, len(outputFinal)):
         output = outputFinal[i];
 
-        if (output > m):
+        if(output > m):
             m = output;
             index = i;
 
@@ -162,10 +162,10 @@ def Train(X, Y, r, layers, weights):
                 prevActivation = np.append(1,activations[i-1]);
             else:
                 #First hidden layer, prevActivation is input (without bias)
-                prevActivation = activations[i-1];
+                prevActivation = activations[0];
             
             delta = np.multiply(error, SigmoidDerivative(currActivation));
-            weights[i-1] = r * np.multiply(delta.T,prevActivation);
+            weights[i-1] += r * np.multiply(delta.T,prevActivation);
 
             w = np.delete(weights[i-1], [0], axis=1); #remove bias from weights
             
@@ -199,10 +199,10 @@ def main():
     r = 0.15;
     epochs = 100;
 
-    print K_FoldValidation(5, X, Y, f, hiddenLayers, [h1,h2,o], epochs, r);
+    #print K_FoldValidation(5, X, Y, f, hiddenLayers, [h1,h2,o], epochs, r);
     
-    #weights = NeuralNetwork(epochs,X,Y,f,hiddenLayers,[h1,h2,o],r);
-    #print Accuracy(X, Y, weights, hiddenLayers);
+    weights = NeuralNetwork(epochs,X,Y,f,hiddenLayers,[h1,h2,o],r);
+    print Accuracy(X, Y, weights, hiddenLayers);
 
 if __name__ == "__main__":
     main();
