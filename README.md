@@ -31,3 +31,9 @@ A (WIP) list of Machine Learning algorithms in Python. Currently includes the fo
   1. Includes plotting, which requires matplotlib
   
   2. Includes both the online (or sequential) kMeans and the standard (or iterative) algorithm.
+
+### Pattern Recognition
+
+1. Viterbi Algorithm (for Hidden Markov Models)
+
+2. Edit Distance Algorithm
