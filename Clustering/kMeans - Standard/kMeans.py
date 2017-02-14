@@ -72,20 +72,19 @@ def UpdateMean(n,mean,item):
     
     return mean;
 
-
-###_Core Functions_###
-def FindClusters(means,items):
-    clusters = [[] for i in range(len(means))]; #Init clusters
+def FindClusters(k,items,belongsTo):
+    clusters = [[] for i in range(k)]; #Init clusters
     
-    for item in items:
-        #Classify item into a cluster
-        index = Classify(means,item);
+    for i in range(len(items)):
+        item = items[i];
+        classification = belongsTo[i];
 
-        #Add item to cluster
-        clusters[index].append(item);
+        clusters[classification].append(item);
 
     return clusters;
 
+
+###_Core Functions_###
 def Classify(means,item):
     #Classify item to the mean with minimum distance
     
@@ -141,7 +140,9 @@ def CalculateMeans(k,items,maxIterations=100000):
         if(noChange):
             break;
 
-    return means;
+    clusters = FindClusters(k,items,belongsTo);
+
+    return means, clusters;
 
 
 ###_Main_###
@@ -150,11 +151,9 @@ def main():
     
     k = 3;
 
-    means = CalculateMeans(k,items);
-    print "Means = ", means;
-
-    clusters = FindClusters(means,items);
-    print "Clusters: ", clusters;
+    means, clusters = CalculateMeans(k,items);
+    print means;
+    print clusters;
 
     #newItem = [5.4,3.7,1.5,0.2];
     #print Classify(means,newItem);
