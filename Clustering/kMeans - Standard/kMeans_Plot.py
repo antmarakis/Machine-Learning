@@ -49,8 +49,7 @@ def main():
     items = CutToTwoFeatures(items,2,3);
     
     k = 3;
-    means = kMeans.CalculateMeans(k,items);
-    clusters = kMeans.FindClusters(means,items);
+    means, clusters = kMeans.CalculateMeans(k,items);
     
     PlotClusters(clusters);
 
