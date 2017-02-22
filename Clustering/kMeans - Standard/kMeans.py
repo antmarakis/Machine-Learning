@@ -72,14 +72,15 @@ def UpdateMean(n,mean,item):
     
     return mean;
 
-def FindClusters(k,items,belongsTo):
-    clusters = [[] for i in range(k)]; #Init clusters
+def FindClusters(means,items):
+    clusters = [[] for i in range(len(means))]; #Init clusters
     
-    for i in range(len(items)):
-        item = items[i];
-        classification = belongsTo[i];
+    for item in items:
+        #Classify item into a cluster
+        index = Classify(means,item);
 
-        clusters[classification].append(item);
+        #Add item to cluster
+        clusters[index].append(item);
 
     return clusters;
 
@@ -110,7 +111,7 @@ def CalculateMeans(k,items,maxIterations=100000):
     
     #Initialize clusters, the array to hold
     #the number of items in a class
-    clusters = [0 for i in range(len(means))];
+    clusterLengths = [0 for i in range(len(means))];
 
     #An array to hold the cluster an item is in
     belongsTo = [0 for i in range(len(items))];
@@ -119,7 +120,6 @@ def CalculateMeans(k,items,maxIterations=100000):
     for e in range(maxIterations):
         #If no change of cluster occurs, halt
         noChange = True;
-        clusters = [0 for i in range(len(means))];
         for i in range(len(items)):
             item = items[i];
             #Classify item into a cluster and update the
@@ -127,8 +127,8 @@ def CalculateMeans(k,items,maxIterations=100000):
         
             index = Classify(means,item);
 
-            clusters[index] += 1;
-            means[index] = UpdateMean(clusters[index],means[index],item);
+            clusterLengths[index] += 1;
+            means[index] = UpdateMean(clusterLengths[index],means[index],item);
 
             #Item changed cluster
             if(index != belongsTo[i]):
@@ -140,9 +140,7 @@ def CalculateMeans(k,items,maxIterations=100000):
         if(noChange):
             break;
 
-    clusters = FindClusters(k,items,belongsTo);
-
-    return means, clusters;
+    return means;
 
 
 ###_Main_###
@@ -151,7 +149,8 @@ def main():
     
     k = 3;
 
-    means, clusters = CalculateMeans(k,items);
+    means = CalculateMeans(k,items);
+    clusters = FindClusters(means,items);
     print means;
     print clusters;
 
