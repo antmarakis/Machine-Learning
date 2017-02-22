@@ -111,7 +111,7 @@ def CalculateMeans(k,items,maxIterations=100000):
     
     #Initialize clusters, the array to hold
     #the number of items in a class
-    clusterLengths = [0 for i in range(len(means))];
+    clusterSizes = [0 for i in range(len(means))];
 
     #An array to hold the cluster an item is in
     belongsTo = [0 for i in range(len(items))];
@@ -127,8 +127,8 @@ def CalculateMeans(k,items,maxIterations=100000):
         
             index = Classify(means,item);
 
-            clusterLengths[index] += 1;
-            means[index] = UpdateMean(clusterLengths[index],means[index],item);
+            clusterSizes[index] += 1;
+            means[index] = UpdateMean(clusterSizes[index],means[index],item);
 
             #Item changed cluster
             if(index != belongsTo[i]):
