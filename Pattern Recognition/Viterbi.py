@@ -99,6 +99,6 @@ def Initialization2():
     return transitionProb,startProb,emissionProb,states,observations,n;
 
 
-transitionProb,startProb,emissionProb,states,observations,n = Initialization2();
+transitionProb,startProb,emissionProb,states,observations,n = Initialization1();
 
 Viterbi(transitionProb,startProb,emissionProb,states,observations,n);
