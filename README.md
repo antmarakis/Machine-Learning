@@ -4,36 +4,36 @@ A (WIP) list of Machine Learning algorithms in Python. Currently includes the fo
 
 ### Classifiers
 
-1. k-Nearest Neighbors ([Blog Post](https://algorithmsandstuff.wordpress.com/2016/12/25/k-nearest-neighbors/))
+* k-Nearest Neighbors ([Blog Post](https://algorithmsandstuff.wordpress.com/2016/12/25/k-nearest-neighbors/))
  
-2. Perceptron ([Theory](https://algorithmsandstuff.wordpress.com/2017/01/05/perceptron-theory/), [Implementation](https://algorithmsandstuff.wordpress.com/2017/02/05/perceptron-implementation/))
+* Perceptron ([Theory](https://algorithmsandstuff.wordpress.com/2017/01/05/perceptron-theory/), [Implementation](https://algorithmsandstuff.wordpress.com/2017/02/05/perceptron-implementation/))
  
-3. Least Squares
+* Least Squares
  
-  1. Requires numpy
+  * Requires numpy
   
-  2. Includes plotting, which requires matplotlib
+  * Includes plotting, which requires matplotlib
 
-4. Naive Bayes Classifier ([Categorical](https://algorithmsandstuff.wordpress.com/2016/12/09/naive-categorical-bayes-classifier-intro/), [Numerical](https://algorithmsandstuff.wordpress.com/2016/12/17/naive-numerical-bayes-classifier-introduction/))
+* Naive Bayes Classifier ([Categorical](https://algorithmsandstuff.wordpress.com/2016/12/09/naive-categorical-bayes-classifier-intro/), [Numerical](https://algorithmsandstuff.wordpress.com/2016/12/17/naive-numerical-bayes-classifier-introduction/))
   
-  1. Includes Categorical and Numerical classifiers
+  * Includes Categorical and Numerical classifiers
 
-5. Neural Network
+* Neural Network
  
-  1. Requires numpy
+  * Requires numpy
   
-  2. Includes plotting, which requires matplotlib
+  * Includes plotting, which requires matplotlib
 
 ### Clustering
 
-1. kMeans
+* kMeans
   
-  1. Includes plotting, which requires matplotlib
+  * Includes plotting, which requires matplotlib
   
-  2. Includes both the online (or sequential) kMeans and the standard (or iterative) algorithm.
+  * Includes both the online (or sequential) kMeans and the standard (or iterative) algorithm.
 
 ### Pattern Recognition
 
-1. Viterbi Algorithm (for Hidden Markov Models)
+* Viterbi Algorithm (for Hidden Markov Models)
 
-2. Edit Distance Algorithm
+* Edit Distance Algorithm
