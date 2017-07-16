@@ -62,10 +62,10 @@ def Sigmoid(x):
     return 1 / (1 + np.exp(-x));
 
 def SigmoidDerivative(x):
-    return np.multiply(x, 1 - x);
+    return np.multiply(x, 1-x);
 
 def InitializeWeights(f, layers, nodes):
-    ##_Initialize weights with random values in [-1,1] (including bias)_##
+    ##_Initialize weights with random values in [-1, 1] (including bias)_##
 
     #Augment feature vectors with bias
     f += 1;
@@ -76,7 +76,7 @@ def InitializeWeights(f, layers, nodes):
 
     weights = [inputToHidden];
     #Initialize the rest of the weights
-    for i in range(1,layers):
+    for i in range(1, layers):
         w = [[np.random.uniform(-1, 1) for k in range(nodes[i-1] + 1)] for j in range(nodes[i])];
         w = np.matrix(w);
         weights.append(w);
@@ -189,7 +189,7 @@ def NeuralNetwork(epochs, X, Y, f, hiddenLayers, nodes, r=0.15):
 
 ###_Main_###
 def main():
-    X,Y = Reader.ReadData('data.txt');
+    X, Y = Reader.ReadData('data.txt');
 
     f = len(X[0].A1);
     h1 = 5;
@@ -201,7 +201,7 @@ def main():
 
     #print K_FoldValidation(5, X, Y, f, hiddenLayers, [h1,h2,o], epochs, r);
     
-    weights = NeuralNetwork(epochs,X,Y,f,hiddenLayers,[h1,h2,o],r);
+    weights = NeuralNetwork(epochs, X, Y, f, hiddenLayers, [h1,h2,o], r);
     print Accuracy(X, Y, weights, hiddenLayers);
 
 if __name__ == "__main__":
