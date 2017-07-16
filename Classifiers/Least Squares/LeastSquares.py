@@ -31,17 +31,17 @@ def ReadData(fileName):
     Y = BuildY(classes); #Build the Y matrices
     n = len(items)-1; #The number of items
 
-    X,Y = ShuffleArrays(X,Y);
+    X, Y = ShuffleArrays(X, Y);
 
-    return X,Y,n;
+    return X, Y, n;
 
-def ShuffleArrays(A,B):
+def ShuffleArrays(A, B):
     toShuffle = []; #Temp array to shuffle X and Y at the same time
     n = len(A);
     
     for i in range(n):
         #Build toShuffle by packing Xi together with Yi
-        toShuffle.append((A[i],B[i]));
+        toShuffle.append((A[i], B[i]));
 
     shuffle(toShuffle);
     
@@ -68,7 +68,7 @@ def BuildY(Y):
 
 
 ###_Core Functions_###
-def CalculateWeights(X,Y):
+def CalculateWeights(X, Y):
     #Number of attributes
     A = X.shape[1] + 1;
     #Number of classes
@@ -80,24 +80,24 @@ def CalculateWeights(X,Y):
 
     for i in range(len(X)):
         x = X[i]; #The ith item vector
-        x = np.append(1,x); #Augment item with a 1
+        x = np.append(1, x); #Augment item with a 1
 
         y = Y[i]; #The vector storing the class x is in
 
         #Calculate outer products of x*x.T and x*y.T
-        XX += np.outer(x,x);
-        XY += np.outer(x,y);
+        XX += np.outer(x, x);
+        XY += np.outer(x, y);
 
     XX += 0.001 * np.eye(A); #Avoid XX being non-invertable
 
     #The weight matrix is the product of XX.T and XY
-    weight = np.dot(inv(XX),XY);
+    weight = np.dot(inv(XX), XY);
     return weight;
 
 def Predict(W,x):
-    x = np.append(1,x); #Augment item with a 1
+    x = np.append(1, x); #Augment item with a 1
 
-    prediction = np.dot(W.T,x); #List of predictions
+    prediction = np.dot(W.T, x); #List of predictions
 
     #Find max prediction
     m = prediction[0];
@@ -115,7 +115,7 @@ def Predict(W,x):
 
 
 ###_Evaluation Functions_###
-def K_FoldValidation(k,X,Y):
+def K_FoldValidation(k, X, Y):
     if(k > len(X)):
         return -1;
 
@@ -129,14 +129,14 @@ def K_FoldValidation(k,X,Y):
         trainingX = X[i*l:(i+1)*l];
         trainingY = Y[i*l:(i+1)*l];
 
-        testX = np.concatenate([X[:i*l],X[(i+1)*l:]]);
-        testY = np.concatenate([Y[:i*l],Y[(i+1)*l:]]);
+        testX = np.concatenate([X[:i*l], X[(i+1)*l:]]);
+        testY = np.concatenate([Y[:i*l], Y[(i+1)*l:]]);
 
-        W = CalculateWeights(trainingX,trainingY);
+        W = CalculateWeights(trainingX, trainingY);
 
         for j in range(len(testX)):
             itemClass = list(testY[j].A1); #The actual classification
-            guess = Predict(W,testX[j]); #Make a prediction
+            guess = Predict(W, testX[j]); #Make a prediction
 
             if(guess == itemClass):
                 #Guessed correctly
@@ -144,25 +144,21 @@ def K_FoldValidation(k,X,Y):
 
     return correct/float(total);
 
-def Evaluate(times,k,X,Y):
+def Evaluate(times, k, X, Y):
     accuracy = 0;
     for t in range(times):
-        X,Y = ShuffleArrays(X,Y);
-        accuracy += K_FoldValidation(k,X,Y);
+        X, Y = ShuffleArrays(X, Y);
+        accuracy += K_FoldValidation(k, X, Y);
 
     print accuracy/float(times);
 
 
 ###_Main_###
 def main():
-    data = ReadData('data.txt');
-    X = data[0];
-    Y = data[1];
-    n = data[2];
+    X, Y, n = ReadData('data.txt');
+    W = CalculateWeights(X, Y);
 
-    W = CalculateWeights(X,Y);
-
-    Evaluate(100,5,X,Y);
+    Evaluate(100, 5, X, Y);
 
 if __name__ == "__main__":
     main();
