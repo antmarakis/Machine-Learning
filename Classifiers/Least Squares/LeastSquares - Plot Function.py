@@ -4,7 +4,7 @@ from random import choice;
 from matplotlib import pyplot;
 
 
-def PlotFunction(X,Y,percentage,indexA,indexB):
+def PlotFunction(X, Y, percentage, indexA, indexB):
     n = len(X)-1; #Number of items
     split = int(n*percentage);
 
@@ -25,13 +25,13 @@ def PlotFunction(X,Y,percentage,indexA,indexB):
     #The items will be sorted into classes in this list
     Points = [[] for i in range(testY.shape[1])];
 
-    W = LS.CalculateWeights(testX,testY);
+    W = LS.CalculateWeights(testX, testY);
 
     correct = 0;
 
     #Calculate accuracy
     for i in range(n):
-        prediction = LS.Predict(W,X[i]);
+        prediction = LS.Predict(W, X[i]);
         itemClass = list(Y[i].A1);
 
         if(prediction == itemClass):
@@ -47,9 +47,9 @@ def PlotFunction(X,Y,percentage,indexA,indexB):
         Points[index].append(X[i]);
 
     accuracy = correct/float(n)*100;
-    print "Accuracy ",accuracy;
+    print "Accuracy ", accuracy;
 
-    colors = ['r','b','g','c','m','y'];
+    colors = ['r', 'b', 'g', 'c', 'm', 'y'];
     
     for i in range(len(Points)):
         p = Points[i];
@@ -65,8 +65,8 @@ def PlotFunction(X,Y,percentage,indexA,indexB):
             Xa.append(item[:, [0]].item(0));
             Xb.append(item[:, [1]].item(0));
 
-        pyplot.plot(Xa,Xb,'o',color=color);
-        pyplot.plot(W[i],color=color);
+        pyplot.plot(Xa, Xb, 'o', color=color);
+        pyplot.plot(W[i], color=color);
     
     pyplot.show();
 
@@ -74,6 +74,6 @@ def PlotFunction(X,Y,percentage,indexA,indexB):
 def main():
     X,Y,n = LS.ReadData('data.txt');
 
-    PlotFunction(X,Y,0.7,2,3);
+    PlotFunction(X, Y, 0.7, 2, 3);
 
 main();
