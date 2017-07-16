@@ -5,7 +5,7 @@ from random import shuffle;
 ###_Reading_###
 def ReadData(fileName):
     #Read the file, splitting by lines
-    f = open(fileName,'r');
+    f = open(fileName, 'r');
     lines = f.read().splitlines();
     f.close();
 
@@ -35,14 +35,14 @@ def ReadData(fileName):
 
 
 ###_Auxiliary Function_###
-def EuclideanDistance(x,y):
+def EuclideanDistance(x, y):
     S = 0; #The sum of the squared differences of the elements
     for key in x.keys():
-        S += math.pow(x[key]-y[key],2);
+        S += math.pow(x[key]-y[key], 2);
 
     return math.sqrt(S); #The square root of the sum
 
-def CalculateNeighborsClass(neighbors,k):
+def CalculateNeighborsClass(neighbors, k):
     count = {};
     
     for i in range(k):
@@ -66,7 +66,7 @@ def FindMax(Dict):
             maximum = Dict[key];
             classification = key;
 
-    return classification,maximum;
+    return classification, maximum;
 
 
 ###_Core Functions_###
@@ -76,36 +76,36 @@ def Classify(nItem, k, Items):
 
     for item in Items:
         #Find Euclidean Distance
-        distance = EuclideanDistance(nItem,item);
+        distance = EuclideanDistance(nItem, item);
 
         #Update neighbors,
         #either adding the current item in neighbors or not.
-        neighbors = UpdateNeighbors(neighbors,item,distance,k);
+        neighbors = UpdateNeighbors(neighbors, item, distance, k);
 
     #Count the number of each class in neighbors
-    count = CalculateNeighborsClass(neighbors,k);
+    count = CalculateNeighborsClass(neighbors, k);
 
     #Find the max in count, aka the class with the most appearances
     return FindMax(count);
 
-def UpdateNeighbors(neighbors,item,distance,k):
+def UpdateNeighbors(neighbors, item, distance, k):
     if(len(neighbors) < k):
         #List is not full, add new item and sort
-        neighbors.append([distance,item["Class"]]);
+        neighbors.append([distance, item["Class"]]);
         neighbors = sorted(neighbors);
     else:
         #List is full
         #Check if new item should be entered
         if(neighbors[-1][0] > distance):
             #If yes, replace the last element with new item
-            neighbors[-1] = [distance,item["Class"]];
+            neighbors[-1] = [distance, item["Class"]];
             neighbors = sorted(neighbors);
 
     return neighbors;
 
 
 ###_Evaluation Functions_###
-def K_FoldValidation(K,k,Items):
+def K_FoldValidation(K, k, Items):
     if(K > len(Items)):
         return -1;
 
@@ -131,7 +131,7 @@ def K_FoldValidation(K,k,Items):
                     itemFeatures[key] = item[key];
 
             #Categorize item based on its feature values
-            guess = Classify(itemFeatures,k,trainingSet)[0];
+            guess = Classify(itemFeatures, k, trainingSet)[0];
 
             if(guess == itemClass):
                 #Guessed correctly
@@ -145,7 +145,7 @@ def Evaluate(K,k,items,iterations):
     accuracy = 0;
     for i in range(iterations):
         shuffle(items);
-        accuracy += K_FoldValidation(K,k,items);
+        accuracy += K_FoldValidation(K, k, items);
 
     print accuracy/float(iterations);
 
@@ -155,9 +155,9 @@ def main():
     items = ReadData('data.txt');
 
     #newItem = {'PW' : 1.4, 'PL' : 4.7, 'SW' : 3.2, 'SL' : 7.0};
-    #print Classify(newItem,3,items);
-    #K_FoldValidation(5,3,items);
-    Evaluate(5,5,items,100);
+    #print Classify(newItem, 3, items);
+    #K_FoldValidation(5, 3, items);
+    Evaluate(5, 5, items, 100);
 
 if __name__ == "__main__":
     main();
