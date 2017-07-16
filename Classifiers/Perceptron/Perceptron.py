@@ -40,7 +40,7 @@ def ReadData(fileName):
 
 
 ###_Evaluation Functions_###
-def K_FoldValidation(K,Items,rate,epochs,classes,features):
+def K_FoldValidation(K, Items, rate, epochs, classes, features):
     if(K > len(Items)):
         return -1;
 
@@ -54,7 +54,7 @@ def K_FoldValidation(K,Items,rate,epochs,classes,features):
         trainingSet = Items[i*l:(i+1)*l];
         testSet = Items[:i*l] + Items[(i+1)*l:];
 
-        weights = CalculateWeights(trainingSet,rate,epochs,classes,features);
+        weights = CalculateWeights(trainingSet, rate, epochs, classes, features);
 
         for item in testSet:
             itemClass = item["Class"];
@@ -66,7 +66,7 @@ def K_FoldValidation(K,Items,rate,epochs,classes,features):
                     #If key isn't "Class", add it to itemFeatures
                     itemFeatures[key] = item[key];
           
-            guess = Perceptron(itemFeatures,weights);
+            guess = Perceptron(itemFeatures, weights);
 
             if(guess == itemClass):
                 #Guessed correctly
@@ -74,24 +74,24 @@ def K_FoldValidation(K,Items,rate,epochs,classes,features):
 
     return correct/float(total);
 
-def Evaluate(times,K,Items,rate,epochs,classes,features):
+def Evaluate(times, K, Items, rate, epochs, classes, features):
     accuracy = 0;
     for t in range(times):
         shuffle(Items);
-        accuracy += K_FoldValidation(K,Items,rate,epochs,classes,features);
+        accuracy += K_FoldValidation(K, Items, rate, epochs, classes, features);
 
     print accuracy/float(times);
 
 
 ###_Auxiliary Functions_###
-def AddDictionaries(d1,d2,rate):
+def AddDictionaries(d1, d2, rate):
     d3 = {};
     for i in d1:
         d3[i] = d1[i] + rate*d2[i];
 
     return d3;
 
-def SubDictionaries(d1,d2,rate):
+def SubDictionaries(d1, d2, rate):
     d3 = {};
     for i in d1:
         d3[i] = d1[i] - rate*d2[i];
@@ -100,7 +100,7 @@ def SubDictionaries(d1,d2,rate):
 
 
 ###_Core Functions_###
-def CalculateConfidence(item,weight):
+def CalculateConfidence(item, weight):
     #Add the product of the weight and item values for each feature
     confidence = 0;
 
@@ -109,7 +109,7 @@ def CalculateConfidence(item,weight):
 
     return confidence;
 
-def CalculateWeights(trainingSet,rate,epochs,classes,features):
+def CalculateWeights(trainingSet, rate, epochs, classes, features):
     #Initialize weights at 0
     weights = {};
 
@@ -128,7 +128,7 @@ def CalculateWeights(trainingSet,rate,epochs,classes,features):
             y = -1;
             guess = "";
             for w in weights:
-                confidence = CalculateConfidence(item,weights[w]);
+                confidence = CalculateConfidence(item, weights[w]);
 
                 if(confidence > y):
                     y = confidence;
@@ -136,12 +136,12 @@ def CalculateWeights(trainingSet,rate,epochs,classes,features):
 
             correct = item["Class"];
             if(correct != guess):
-                weights[guess] = SubDictionaries(weights[guess],item,rate);
-                weights[correct] = AddDictionaries(weights[correct],item,rate);
+                weights[guess] = SubDictionaries(weights[guess], item, rate);
+                weights[correct] = AddDictionaries(weights[correct], item, rate);
 
     return weights;
 
-def Perceptron(item,weights):
+def Perceptron(item, weights):
     item["Bias"] = 1; #Augment item vector with bias
     m = -1; #Hold the maximum
     classification = ""; #Hold the classification
@@ -150,7 +150,7 @@ def Perceptron(item,weights):
     #pick the maximum
     for w in weights:
         #Multiply the item vector with the class weights vector
-        guess = CalculateConfidence(item,weights[w]);
+        guess = CalculateConfidence(item, weights[w]);
         if(guess > m):
             #Our guess is better than our current best guess,
             #update max and classification
@@ -162,20 +162,16 @@ def Perceptron(item,weights):
 
 ###_Main_###
 def main():
-    data = ReadData('data.txt');
-
-    items = data[0];
-    classes = data[1];
-    features = data[2];
+    items, classes, features = ReadData('data.txt');
 
     lRate = 0.1;
     epochs = 50;
-    weights = CalculateWeights(items,lRate,epochs,classes,features);
+    weights = CalculateWeights(items, lRate, epochs, classes, features);
 
     item = {'PW' : 1.4, 'PL' : 4.7, 'SW' : 3.2, 'SL' : 7.0};
-    print Perceptron(item,weights);
+    print Perceptron(item, weights);
 
-    #Evaluate(100,5,items,lRate,epochs,classes,features);
+    #Evaluate(100, 5, items, lRate, epochs, classes, features);
 
 if __name__ == "__main__":
     main();
