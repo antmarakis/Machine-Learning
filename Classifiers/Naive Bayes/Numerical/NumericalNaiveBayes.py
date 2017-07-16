@@ -2,8 +2,8 @@ import _DataReader as DataReader;
 import math;
 
 
-def Gaussian(mean,stDev,x):
-    g = 1/(math.sqrt(2*math.pi)*stDev)*math.e**(-0.5*(float(x-mean)/stDev)**2);
+def Gaussian(mean, stDev, x):
+    g = 1/(math.sqrt(2*math.pi)*stDev) * math.e**(-0.5*(float(x-mean)/stDev)**2);
     return g;
 
 def Classifier(Evidence):
@@ -70,11 +70,7 @@ def Classifier(Evidence):
 
 
 #Read data from file
-data = DataReader.Read('data.txt'); #Returns a tuple
-Classes = data[0]; #The first item of the tuple is the Classes data
-Features = data[1]; #The second item is the Features data
-P = data[2]; #The third is the probabilities
-n = data[3]; #The fourth is the length of our data set
+Classes, Features, P, n = DataReader.Read('data.txt'); #Returns a tuple
 
 #Run classifier with the evidence list
-Classifier((('Height',170),('Weight',65)));
+Classifier((('Height', 170), ('Weight', 65)));
