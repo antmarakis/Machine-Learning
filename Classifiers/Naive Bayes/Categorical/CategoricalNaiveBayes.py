@@ -47,10 +47,7 @@ def Classifier(Evidence):
 
 
 #Read data from file
-data = DataReader.Read('data4.txt');
-Classes = data[0];
-Features = data[1];
-P = data[2];
+Classes, Features, P = DataReader.Read('data4.txt');
 
 #Run classifier with the evidence list
-Classifier(['Tall','Slim']);
+Classifier(['Tall', 'Slim']);
