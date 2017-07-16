@@ -5,7 +5,7 @@ from random import choice;
 from matplotlib import pyplot;
 
 
-def PlotFunction(X,Y,percentage,indexA,indexB):
+def PlotFunction(X, Y, percentage, indexA, indexB):
     n = len(X); #Number of items
     split = int(n*percentage);
 
@@ -15,7 +15,7 @@ def PlotFunction(X,Y,percentage,indexA,indexB):
         if(j == indexA or j == indexB):
             continue;
 
-        X = np.delete(X,j,1);
+        X = np.delete(X, j, 1);
     
     testX = X[split:];
     testY = Y[split:];
@@ -31,7 +31,7 @@ def PlotFunction(X,Y,percentage,indexA,indexB):
     r = 0.15;
     epochs = 100;
 
-    weights = NN.NeuralNetwork(epochs,X,Y,f,hiddenLayers,[h1,h2,o],r);
+    weights = NN.NeuralNetwork(epochs, X, Y, f, hiddenLayers, [h1,h2,o], r);
 
     correct = 0;
 
@@ -77,8 +77,8 @@ def PlotFunction(X,Y,percentage,indexA,indexB):
 
 
 def main():
-    X,Y = Reader.ReadData('data.txt');
+    X, Y = Reader.ReadData('data.txt');
 
-    PlotFunction(X,Y,0.7,2,3);
+    PlotFunction(X, Y, 0.7, 2, 3);
 
 main();
