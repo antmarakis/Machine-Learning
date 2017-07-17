@@ -17,7 +17,7 @@ def ReadData(fileName):
     classes = [];
     features = lines[0].split(',')[:-1];
 
-    for i in range(1,len(lines)):
+    for i in range(1, len(lines)):
         line = lines[i].split(',');
 
         if(line[-1] not in classes):
@@ -26,9 +26,8 @@ def ReadData(fileName):
         itemFeatures = {"Class" : line[-1], "Bias" : 1};
 
         for j in range(len(features)):
-            #Iterate through the features
             f = features[j]; #Get the feature at index j
-            v = float(line[j]); #Convert feature value to float
+            v = float(line[j]);
 
             itemFeatures[f] = v;
     
@@ -98,8 +97,6 @@ def SubDictionaries(d1, d2, rate):
 
     return d3;
 
-
-###_Core Functions_###
 def CalculateConfidence(item, weight):
     #Add the product of the weight and item values for each feature
     confidence = 0;
@@ -109,6 +106,8 @@ def CalculateConfidence(item, weight):
 
     return confidence;
 
+
+###_Core Functions_###
 def CalculateWeights(trainingSet, rate, epochs, classes, features):
     #Initialize weights at 0
     weights = {};
@@ -144,10 +143,10 @@ def CalculateWeights(trainingSet, rate, epochs, classes, features):
 def Perceptron(item, weights):
     item["Bias"] = 1; #Augment item vector with bias
     m = -1; #Hold the maximum
-    classification = ""; #Hold the classification
+    classification = "";
 
     #Calculate chance of item being in each class,
-    #pick the maximum
+    #pick the maximum.
     for w in weights:
         #Multiply the item vector with the class weights vector
         guess = CalculateConfidence(item, weights[w]);
