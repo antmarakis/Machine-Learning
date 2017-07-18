@@ -1,6 +1,6 @@
 def Read(fileName):
-    Classes = {}; #Class dictionary
-    Features = {}; #Features dictionary
+    Classes = {};
+    Features = {};
 
     #Read data from input file, split the lines
     f = open(fileName,'r');
@@ -12,14 +12,14 @@ def Read(fileName):
     #Extract the features
     features = lines[:1][0]; #The first line of input, taking it as a string.
     features = features.split(' ')[1:]; #Split first line by spaces
-    l = len(features); #The number of features
+    l = len(features);
 
     #Extract the class data
     classes = lines[1:]; #Remove the first line
 
     for f in features:
-        #For every string in the first line, add a new item to Features, plus
-        #its complement.
+        #For every string in the first line, add a new item to Features,
+        #plus its complement.
         Features[f] = 0;
         Features["Not " + f] = 0;
 
