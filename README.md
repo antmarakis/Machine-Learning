@@ -4,9 +4,9 @@ A (WIP) list of Machine Learning algorithms in Python. Currently includes the fo
 
 ### Classifiers
 
-* k-Nearest Neighbors ([Blog Post](https://mrdupin.github.io/2016/11/17/k-nearest-neighbors/))
+* k-Nearest Neighbors ([Blog Post](https://mrdupin.github.io/k-nearest-neighbors/))
  
-* Perceptron ([Theory](https://mrdupin.github.io/2017/02/01/perceptron-theory/), [Implementation](https://mrdupin.github.io/2017/02/10/perceptron-implementation/))
+* Perceptron ([Theory](https://mrdupin.github.io/perceptron-theory/), [Implementation](https://mrdupin.github.io/perceptron-implementation/))
  
 * Least Squares
  
@@ -14,7 +14,7 @@ A (WIP) list of Machine Learning algorithms in Python. Currently includes the fo
   
   * Includes plotting, which requires matplotlib
 
-* Naive Bayes Classifier ([Categorical](https://mrdupin.github.io/2016/11/21/naive-bayes-cat-intro/), [Numerical](https://mrdupin.github.io/2016/11/29/naive-bayes-num-intro/))
+* Naive Bayes Classifier ([Categorical](https://mrdupin.github.io/naive-bayes-cat-intro/), [Numerical](https://mrdupin.github.io/naive-bayes-num-intro/))
   
   * Includes Categorical and Numerical classifiers
 
@@ -26,7 +26,7 @@ A (WIP) list of Machine Learning algorithms in Python. Currently includes the fo
 
 ### Clustering
 
-* kMeans ([Standard](https://mrdupin.github.io/2017/01/17/kMeans/))
+* kMeans ([Standard](https://mrdupin.github.io/kMeans/))
   
   * Includes plotting, which requires matplotlib
   
