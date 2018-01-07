@@ -1,6 +1,10 @@
 # Machine-Learning
 
-A (WIP) list of Machine Learning algorithms in Python. Currently includes the following algorithms:
+A (WIP) list of Machine Learning algorithms in Python + tutorials with Keras. Currently includes the following:
+
+### Keras
+
+* k-Fold Validation ([Blog Post](https://mrdupin.github.io/keras-k-fold/))
 
 ### Classifiers
 
