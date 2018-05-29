@@ -26,11 +26,11 @@ k = 5
 l = int(len(X) / k)
 mse_total, mae_total = 0, 0
 for i in range(k):
-    train_x = X[i*l:(i+1)*l]
-    train_y = Y[i*l:(i+1)*l]
+    test_x = X[i*l:(i+1)*l]
+    test_y = Y[i*l:(i+1)*l]
 
-    test_x = np.concatenate([X[:i*l], X[(i+1)*l:]]);
-    test_y = np.concatenate([Y[:i*l], Y[(i+1)*l:]]);
+    train_x = np.concatenate([X[:i*l], X[(i+1)*l:]]);
+    train_y = np.concatenate([Y[:i*l], Y[(i+1)*l:]]);
 
     model.fit(train_x, train_y, epochs=15)
 
