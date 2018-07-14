@@ -37,11 +37,11 @@ def K_FoldValidation(k, X, Y, f, hiddenLayers, nodes, epochs, r=0.15):
         trainingX = X[i * l:(i + 1) * l];
         trainingY = Y[i * l:(i + 1) * l];
 
-        testX = np.concatenate([X[:i*l],X[(i+1)*l:]]);
-        testY = np.concatenate([Y[:i*l],Y[(i+1)*l:]]);
+        testX = np.concatenate([X[:i*l], X[(i+1)*l:]]);
+        testY = np.concatenate([Y[:i*l], Y[(i+1)*l:]]);
 
         #Calculate Weights
-        weights = NeuralNetwork(epochs,X,Y,f,hiddenLayers,nodes,r);
+        weights = NeuralNetwork(epochs, X, Y, f, hiddenLayers, nodes, r);
 
         #Make predictions for test sets
         for j in range(len(testX)):
@@ -133,7 +133,7 @@ def Train(X, Y, r, layers, weights):
         activations = [x];
         Input = x;
         for i in range(layers):
-            activation = Sigmoid(np.dot(Input,weights[i].T));
+            activation = Sigmoid(np.dot(Input, weights[i].T));
             activations.append(activation);
             
             Input = np.append(1, activation); #Augment with bias
@@ -159,13 +159,13 @@ def Train(X, Y, r, layers, weights):
             
             if(i > 1):
                 #Augment previous activation
-                prevActivation = np.append(1,activations[i-1]);
+                prevActivation = np.append(1, activations[i-1]);
             else:
                 #First hidden layer, prevActivation is input (without bias)
                 prevActivation = activations[0];
             
             delta = np.multiply(error, SigmoidDerivative(currActivation));
-            weights[i-1] += r * np.multiply(delta.T,prevActivation);
+            weights[i-1] += r * np.multiply(delta.T, prevActivation);
 
             w = np.delete(weights[i-1], [0], axis=1); #remove bias from weights
             
