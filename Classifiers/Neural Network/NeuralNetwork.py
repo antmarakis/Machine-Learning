@@ -154,7 +154,7 @@ def Train(X, Y, r, layers, weights):
         outputFinal = activations[-1];
         error = np.matrix(y - outputFinal); #Error at output
         
-        for i in range(layers,0,-1):
+        for i in range(layers, 0, -1):
             currActivation = activations[i];
             
             if(i > 1):
@@ -169,7 +169,7 @@ def Train(X, Y, r, layers, weights):
 
             w = np.delete(weights[i-1], [0], axis=1); #remove bias from weights
             
-            error = np.dot(delta,w); #Calculate error for curr layer
+            error = np.dot(delta, w); #Calculate error for curr layer
 
     return weights;
 
