@@ -22,7 +22,7 @@ A (WIP) list of Machine Learning algorithms in Python + tutorials with Keras. Cu
   
   * Includes Categorical and Numerical classifiers
 
-* Neural Network
+* Neural Network ([Tutorial](https://www.kaggle.com/antmarakis/another-neural-network-from-scratch))
  
   * Requires numpy
   
