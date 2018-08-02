@@ -1,3 +1,10 @@
+"""
+There exists an updated version of this script. It can be found on Kaggle:
+https://www.kaggle.com/antmarakis/another-neural-network-from-scratch
+"""
+
+
+
 import numpy as np;
 import Reader;
 
@@ -132,8 +139,8 @@ def Train(X, Y, r, layers, weights):
         #The first input is the first feature vector (the item)
         activations = [x];
         Input = x;
-        for i in range(layers):
-            activation = Sigmoid(np.dot(Input, weights[i].T));
+        for j in range(layers):
+            activation = Sigmoid(np.dot(Input, weights[j].T));
             activations.append(activation);
             
             Input = np.append(1, activation); #Augment with bias
@@ -154,20 +161,20 @@ def Train(X, Y, r, layers, weights):
         outputFinal = activations[-1];
         error = np.matrix(y - outputFinal); #Error at output
         
-        for i in range(layers, 0, -1):
-            currActivation = activations[i];
+        for j in range(layers, 0, -1):
+            currActivation = activations[j];
             
-            if(i > 1):
+            if(j > 1):
                 #Augment previous activation
-                prevActivation = np.append(1, activations[i-1]);
+                prevActivation = np.append(1, activations[j-1]);
             else:
                 #First hidden layer, prevActivation is input (without bias)
                 prevActivation = activations[0];
             
             delta = np.multiply(error, SigmoidDerivative(currActivation));
-            weights[i-1] += r * np.multiply(delta.T, prevActivation);
+            weights[j-1] += r * np.multiply(delta.T, prevActivation);
 
-            w = np.delete(weights[i-1], [0], axis=1); #remove bias from weights
+            w = np.delete(weights[j-1], [0], axis=1); #remove bias from weights
             
             error = np.dot(delta, w); #Calculate error for curr layer
 
