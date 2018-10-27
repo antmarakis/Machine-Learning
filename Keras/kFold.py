@@ -15,12 +15,15 @@ wines = red.append(white, ignore_index=True).sample(frac=1)
 Y = np.ravel(wines.quality)
 X = wines.drop(['quality'], axis=1)
 
-# Create model
-model = Sequential()
+def create_model(train_x, train_y, epochs):
+    model = Sequential()
 
-model.add(Dense(64, activation='relu', input_dim=12))
-model.add(Dense(1))
-model.compile(optimizer='rmsprop', loss='mse', metrics=['mae'])
+    model.add(Dense(64, activation='relu', input_dim=12))
+    model.add(Dense(1))
+    model.compile(optimizer='rmsprop', loss='mse', metrics=['mae'])
+    
+    model.fit(train_x, train_y, epochs=epochs)
+    return model
 
 k = 5
 l = int(len(X) / k)
@@ -32,7 +35,7 @@ for i in range(k):
     train_x = np.concatenate([X[:i*l], X[(i+1)*l:]]);
     train_y = np.concatenate([Y[:i*l], Y[(i+1)*l:]]);
 
-    model.fit(train_x, train_y, epochs=15)
+    model = create_model(train_x, train_y, 15)
 
     predictions = model.predict(test_x)
     mse, mae = model.evaluate(test_x, test_y)
