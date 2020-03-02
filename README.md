@@ -4,13 +4,13 @@ A (WIP) list of Machine Learning algorithms in Python + tutorials with Keras. Cu
 
 ### Keras
 
-* k-Fold Validation ([Blog Post](https://antmarakis.github.io/keras-k-fold/))
+* k-Fold Validation ([Blog Post](https://antmarakis.github.io/artificial%20intelligence/keras-k-fold/))
 
 ### Classifiers
 
-* k-Nearest Neighbors ([Blog Post](https://antmarakis.github.io/k-nearest-neighbors/))
+* k-Nearest Neighbors ([Blog Post](https://antmarakis.github.io/artificial%20intelligence/k-nearest-neighbors/))
  
-* Perceptron ([Theory](https://antmarakis.github.io/perceptron-theory/), [Implementation](https://antmarakis.github.io/perceptron-implementation/))
+* Perceptron ([Theory](https://antmarakis.github.io/artificial%20intelligence/perceptron-theory/), [Implementation](https://antmarakis.github.io/artificial%20intelligence/perceptron-implementation/))
  
 * Least Squares
  
@@ -18,7 +18,7 @@ A (WIP) list of Machine Learning algorithms in Python + tutorials with Keras. Cu
   
   * Includes plotting, which requires matplotlib
 
-* Naive Bayes Classifier ([Categorical](https://antmarakis.github.io/naive-bayes-cat-intro/), [Numerical](https://antmarakis.github.io/naive-bayes-num-intro/))
+* Naive Bayes Classifier ([Categorical](https://antmarakis.github.io/artificial%20intelligence/naive-bayes-cat-intro/), [Numerical](https://antmarakis.github.io/artificial%20intelligence/naive-bayes-num-intro/))
   
   * Includes Categorical and Numerical classifiers
 
